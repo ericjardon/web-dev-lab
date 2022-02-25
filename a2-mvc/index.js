@@ -1,7 +1,7 @@
 const express = require('express');
 const appRouter = require('./routes/app');
 const exphbs = require('express-handlebars');
-
+const appConfig = require('./config/app');
 
 const PORT = 3000;
 
@@ -19,6 +19,7 @@ app.set('view engine', extNameHbs);
 app.use('/', appRouter);
 
 
-app.listen(PORT, ()=> {
-    console.log('MVC app listening on port', PORT);
+app.listen(appConfig.express_port, ()=> {
+    let msg = 'MVC App listening on port ' + appConfig.express_port + '! (http://localhost:' + appConfig.express_port +')'
+    console.log(msg);
 })
