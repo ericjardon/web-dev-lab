@@ -1,23 +1,17 @@
 // Update with your config settings.
-
+require('dotenv').config()
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 module.exports = {
-
   development: {
-    client: 'sqlite3',
+    client: 'mysql',
     connection: {
-      filename: './dev.sqlite3'
-    }
-  },
-
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      host: process.env.DB_DEVELOPMENT_HOST || 'localhost',
+      port: process.env.DB_DEVELOPMENT_PORT || '3306',
+      database: process.env.DB_DEVELOPMENT_NAME || 'mvc',
+      user:  process.env.DB_DEVELOPMENT_USER || 'root',
+      password: process.env.DB_DEVELOPMENT_PASSWORD || ''
     },
     pool: {
       min: 2,
@@ -27,13 +21,14 @@ module.exports = {
       tableName: 'knex_migrations'
     }
   },
-
   production: {
-    client: 'postgresql',
+    client: 'mysql',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      host: process.env.DB_PRODUCTION_HOST || 'localhost',
+      port: process.env.DB_PRODUCTION_PORT || '3306',
+      database: process.env.DB_PRODUCTION_NAME || 'mvc',
+      user:  process.env.DB_PRODUCTION_USER || 'root',
+      password: process.env.DB_PRODUCTION_PASSWORD || ''
     },
     pool: {
       min: 2,
@@ -43,5 +38,4 @@ module.exports = {
       tableName: 'knex_migrations'
     }
   }
-
 };
