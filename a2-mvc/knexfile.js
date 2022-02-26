@@ -1,11 +1,10 @@
 // Update with your config settings.
 require('dotenv').config()
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
+console.log('knexfile running');
+
 module.exports = {
   development: {
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       host: process.env.DB_DEVELOPMENT_HOST || 'localhost',
       port: process.env.DB_DEVELOPMENT_PORT || '3306',
@@ -22,7 +21,7 @@ module.exports = {
     }
   },
   production: {
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       host: process.env.DB_PRODUCTION_HOST || 'localhost',
       port: process.env.DB_PRODUCTION_PORT || '3306',

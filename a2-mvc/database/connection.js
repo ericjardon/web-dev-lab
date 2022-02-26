@@ -3,7 +3,7 @@
 let appConfig = require('../configs/app');
 
 // Importa el archivo knexfile.js
-const knexfile = require('../knexfile');
+const knexfile = require('../knexfile.js');
 
 // Obtiene los datos de configuración dependiendo 'production' o 'development' en el ENV
 // con esos datos de configuración crea una instancia de knex
