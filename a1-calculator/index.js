@@ -68,7 +68,7 @@ const getOperation = async () => {
 
     while (again) {
         again = false;
-        if (!ANS) {
+        if (ANS == null) {
             let {op1, operation, op2} = await inquirer.prompt(questions);
             console.log('Answers', op1,op2,operation);
             ANS = executeOperation(operation, op1, op2);
