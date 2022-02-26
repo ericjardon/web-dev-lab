@@ -114,8 +114,8 @@ const executeOperation = (type, op1, op2) => {
     let operand2 = parseFloat(op2);
 
     let answer;
-    if (type == '+') {
-        answer = math.sum(operand1, operand2)
+    if (type == '^') {
+        answer = math.power(operand1, operand2)
     }
     else if (type == '-') {
         answer = math.substract(operand1, operand2)
@@ -125,6 +125,9 @@ const executeOperation = (type, op1, op2) => {
     }
     else if (type == '*') {
         answer = math.product(operand1, operand2)
+    }
+    else {
+        answer = math.sum(operand1, operand2)
     }
     
     console.log(`${operand1} ${type} ${operand2} = ${answer}`);

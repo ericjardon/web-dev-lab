@@ -21,6 +21,6 @@ module.exports.division = function division(a, b) {
 
 
 module.exports.power = function power(a, b) {
-    return Math.pow(a, b)
+    return a ** b;
 } 
 
