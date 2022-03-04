@@ -70,6 +70,7 @@ para DETENER el servicio:
 
 6. Conectarse al servidor instalado:
 `mysql -u root --skip-password`
+`mysql -u root -p`
 Y asignar una contraseña nueva: `ALTER USER 'root'@'localhost' IDENTIFIED BY 'root-password';`
 
 7. Creamos un archivo `database/connection.js` donde instanciamos knex y lo conectamos a la base de datos según la variable de entorno sea "production" o "development".
@@ -85,3 +86,11 @@ Created Migration: C:\Users\a01376748\Documents\web-dev-lab\a2-mvc\migrations\20
 ```
 
 En un archivo de migración tenemos dos funciones "up" (las modificaciones a la base de datos) y "down" (operaciones que revierten las modificaciones de up).
+Seguimiento: https://github.com/luisjglz/TC3052-202211/tree/main/Actividad02
+
+### Generar seeds para insertar datos
+`knex seed:make 01_products`
+Una seed es un archivo que corre para insertar o crear registros en la base de datos. Es como un 'commit' a la base de datos.
+
+Para correr una seed en la base de datos:
+`knex seed:run`
