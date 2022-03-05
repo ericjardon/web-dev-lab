@@ -1,0 +1,29 @@
+<!-- views/pages/homepage.js -->
+<h1>Hello MVC</h1>
+<p>This is my first page</p>
+
+<ul>
+    {{#each products}}
+    <li>{{this.name}}</li>
+    {{/each}}
+</ul>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th>
+    </tr>
+    {{!-- One row per-product --}}
+    {{#each products}}
+        <tr>
+            <td>{{this.id}}</td>                
+                <td>
+                    <a href="/products/{{this.id}}">
+                    {{this.name}}
+                    </a>
+                </td>
+            <td>{{this.price}}</td>
+        </tr>
+    {{/each}}
+</table>
+
+<a href="/products/new">New Product</a>
+<a href="/about">Learn About Us!</a>
