@@ -1,0 +1,30 @@
+extends ../layout 
+
+block content
+    table.table 
+        thead 
+            tr 
+                th ID
+                th Color
+                th Model
+                th Location 
+                th
+                th
+        tbody 
+            each bike in bikes
+                tr
+                    td=bike.id 
+                    td=bike.color
+                    td=bike.model
+                    td=bike.location
+                    td 
+                        a(href= '/bikes/' + bike.id + '/update') Edit
+                    td 
+                        form.inline(method='post' action='/bikes/' + bike.id + '/delete')
+                            input(type='hidden' name='id' value= bike.id)
+                            button.link-button(type='submit' name='submit_param' value='submit_value' class='btn')
+                                = 'Delete'
+
+    a(href='/') Home
+    br
+    a(href='/bikes/create') Add new bike
