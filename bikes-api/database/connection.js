@@ -1,6 +1,5 @@
-// database/connection.js
-// Obtiene las configuraciones del sistema
-let appConfig = require('../config/app');
+
+let appConfig = require('../configs/app');  // environment and port setup
 
 // Importa el archivo knexfile.js
 const knexfile = require('../knexfile.js');
