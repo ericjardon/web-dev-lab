@@ -16,7 +16,7 @@ block content
                     td=bike.id 
                     td=bike.color
                     td=bike.model
-                    td=bike.location
+                    td=([bike.lat, bike.lon])
                     td 
                         a(href= '/bikes/' + bike.id + '/update') Edit
                     td 

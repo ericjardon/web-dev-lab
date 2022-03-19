@@ -28,8 +28,7 @@ exports.create_bike = function(req,res) {
         })
     }
 
-    let location = [lat, lon]
-    let bike = new Bike(id, color, model, location);
+    let bike = new Bike(id, color, model, lat, lon);
     Bike.add(bike);
 
     res.status(200).json({
