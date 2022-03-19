@@ -9,4 +9,18 @@ accessToken: 'pk.eyJ1IjoibHVpc2pvc2U1IiwiYSI6ImNsMDc0dDVtMjAza3gzanM4d3J0ZnMzbzg
 }).addTo(map);
  
 //Adding a marker
-L.marker([19.284076,-99.1355524], title='test').addTo(map);
+//L.marker([19.284076,-99.1355524], title='test').addTo(map);
+
+// Adding a marker for each bike
+$.ajax({
+    dataType: "json",
+    url: "api/bikes",
+    success: function(result) {
+        console.log("Success:", result);
+        result.bikes.forEach((b) => {
+            L.marker(b.location, title=b.id).addTo(map);
+        })
+    }
+})
+
+$('h1').css('color', 'red');  // get all h1 tags and change their color

@@ -6,7 +6,8 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const bikesRouter = require('./routes/bikes')
+const bikesRouter = require('./routes/bikes');
+const bikesApiRouter = require('./routes/api/bikes');
 
 const app = express();
 
@@ -25,11 +26,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/bikes', bikesRouter);
+app.use('/api/bikes', bikesApiRouter);
 
 // ERROR CATCHING: catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
 // GENERIC ERROR HANDLER
 app.use(function(err, req, res, next) {
