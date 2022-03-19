@@ -5,8 +5,8 @@
       table.increments('id');
       table.string('model', 255).notNullable();
       table.string('color', 255).notNullable();
-      table.float('lat');
-      table.float('lon');
+      table.decimal('lat', 11, 8).notNullable();
+      table.decimal('lon', 11, 8).notNullable();
       table.timestamps(true, true);
     });
 };
