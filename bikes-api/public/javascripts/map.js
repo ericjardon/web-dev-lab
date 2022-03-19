@@ -9,7 +9,7 @@ accessToken: 'pk.eyJ1IjoibHVpc2pvc2U1IiwiYSI6ImNsMDc0dDVtMjAza3gzanM4d3J0ZnMzbzg
 }).addTo(map);
  
 //Adding a marker
-//L.marker([19.284076,-99.1355524], title='test').addTo(map);
+L.marker([19.284076,-99.1355524], title='test').addTo(map);
 
 // Adding a marker for each bike
 $.ajax({
@@ -18,6 +18,7 @@ $.ajax({
     success: function(result) {
         console.log("Success:", result);
         result.bikes.forEach((b) => {
+            console.log("Coords", b.lat, b.lon);
             L.marker([b.lat, b.lon], title=b.id).addTo(map);
         })
     }
