@@ -18,7 +18,7 @@ $.ajax({
     success: function(result) {
         console.log("Success:", result);
         result.bikes.forEach((b) => {
-            L.marker(b.location, title=b.id).addTo(map);
+            L.marker([b.lat, b.lon], title=b.id).addTo(map);
         })
     }
 })
