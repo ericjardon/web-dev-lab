@@ -1,10 +1,12 @@
 const mongoose = require('mongoose')
 const Reserva = require('./reserva')
-const crypto = require('crypto')
-const Token = require('./token')
+
 const uniqueValidator = require('mongoose-unique-validator')
 const bcrypt = require('bcrypt')
-const SALT_ROUNDS = 10;
+const saltRounds = 10
+const crypto = require('crypto')
+
+const Token = require('../models/token')
 const mailer = require('../mailer/mailer')
 
 let Schema = mongoose.Schema
@@ -25,9 +27,9 @@ let usuarioSchema = new Schema({
         trim: true,
         required: [true, 'El email es obligatorio'],
         lowercase: true,
-        unique:true,  // no es un validador; es una opiocón para indexar como único el campo en MongoDB. para validar instalamos mongoose-unique-validator
+        unique: true,
         validate: [validateEmail, 'Por favor, ingrese un email válido'],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Por favor, ingrese un email válido']
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Ingrese un email válido']
     },
     password: {
         type: String,
@@ -35,20 +37,24 @@ let usuarioSchema = new Schema({
     },
     passwordResetToken: String,
     passwordResetTokenExpires: Date,
-    verified: {
+    verificado: {
         type: Boolean,
         default: false
     }
 })
 
-usuarioSchema.pre('save', function(next) {
-    if (this.isModified('password')) {
-        this.password = bcrypt.hashSync(this.password, SALT_ROUNDS);
+usuarioSchema.plugin(uniqueValidator, { message: 'El {PATH} ya existe con otro usuario.' })
+
+usuarioSchema.pre('save', function(next){
+    if(this.isModified('password')){
+        this.password = bcrypt.hashSync(this.password, saltRounds)
     }
-    // Cómo sabe bcrypt el numero de rounds usados al encriptar?
-    // https://stackoverflow.com/questions/61986478/how-bcrypt-js-compare-method-knows-the-number-of-salting-rounds
     next()
 })
+
+usuarioSchema.methods.validPassword = function(password){
+    return bcrypt.compare(password, this.password)
+}
 
 usuarioSchema.methods.reservar = function(biciId, desde, hasta, cb) {
     let reserva = new Reserva({usuario: this._id, bicicleta: biciId, desde: desde, hasta: hasta})
@@ -59,7 +65,6 @@ usuarioSchema.methods.reservar = function(biciId, desde, hasta, cb) {
 usuarioSchema.methods.enviar_mail_bienvenida = function(cb) {
     const token = new Token({_userId: this.id, token: crypto.randomBytes(16).toString('hex')})
     const email_destination = this.email
-    console.log("Email destination");
     token.save(function (err) {
         if(err) { return console.log(err.message) }
         const mailOptions = {
@@ -76,12 +81,6 @@ usuarioSchema.methods.enviar_mail_bienvenida = function(cb) {
         })
     })
 }
-
-usuarioSchema.methods.validatePassword = (inputPassword) => {
-    return bcrypt.compare(this.password, inputPassword)
-} 
-
-usuarioSchema.plugin(uniqueValidator, { message: 'Ya existe un usuario con el correo: {PATH}'})
 
 module.exports = mongoose.model('Usuario', usuarioSchema) 
 

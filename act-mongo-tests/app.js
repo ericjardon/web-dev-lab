@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,24 +7,26 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 let biciRouter = require('./routes/bicicletas')
 let biciRouterAPI = require('./routes/api/bicicletas')
 let usuariosAPIRouter = require('./routes/api/usuarios')
-let usuariosRouter = require('./routes/usuarios');
-let tokensRouter = require('./routes/tokens');
+
+let usuariosRouter = require('./routes/usuarios')
+let tokenRouter = require('./routes/token')
 
 var app = express();
 
 //Setup mongoose
 var mongoose = require('mongoose')
-var mongoDB = process.env.MONGODB_CONNECTION //'mongodb://localhost:27017/red_bicicletas'
+var mongoDB = process.env.MONGODB_CONNECTION;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true })
 mongoose.Promise = global.Promise
 var db = mongoose.connection
 
-db.on('error', console.error.bind(console, 'MongoDB connection error: '));
-//db.on('open', console.log.bind(console, 'MongoDB connection ok '))
+db.on('error', console.error.bind(console, 'MongoDB connection error: '))
+db.on('open', console.log.bind(console, 'MongoDB connection ok '))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,11 +39,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/usuarios', usuariosRouter);
+app.use('/users', usersRouter);
 app.use('/bicicletas', biciRouter);
 app.use('/api/bicicletas', biciRouterAPI);
 app.use('/api/usuarios', usuariosAPIRouter);
-app.use('/token', tokensRouter);
+app.use('/usuarios', usuariosRouter);
+app.use('/token', tokenRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
