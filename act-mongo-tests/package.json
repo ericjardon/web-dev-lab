@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "test": "jasmine"
+    "test": "jasmine",
+    "mochatest": "mocha"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "jasmine": "^4.0.2",
+    "mocha": "^9.2.2",
     "nodemon": "^2.0.15"
   }
 }

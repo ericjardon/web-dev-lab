@@ -7,7 +7,7 @@ let base_url = 'http://localhost:3000/api/bicicletas/'
 describe('Bicicletas API', () => {
 
     beforeEach(function(done){
-        var mongoDB = 'mongodb://localhost:27017/red_bicicletas'
+        var mongoDB = process.env.MONGODB_CONNECTION
         mongoose.connect(mongoDB, {useNewUrlParser: true})
 
         const db = mongoose.connection
@@ -59,5 +59,11 @@ describe('Bicicletas API', () => {
     })
 
     //TODO: add test for removing a bike
+    /* describe('POST BICICLETA /:id/delete', () => {
+        it('Status 204', (done) => {
+            let headers = {'content-type' : 'application/json'}
+            let idToDelete = ''
+        })
+    }) */
 })
 

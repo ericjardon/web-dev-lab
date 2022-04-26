@@ -24,15 +24,17 @@ exports.bicicleta_delete_post = function (req, res) {
 }
 
 exports.bicicleta_update_get = function (req, res) {
-
+    console.log("Find bicycle with id", req.params.id);
     Bicicleta.findOne({ code: req.params.id }).then(function (bici) {
         res.render('bicicletas/update', { bici: bici })
     });
 }
 
 exports.bicicleta_update_post = function (req, res) {
+    console.log("Updating bicicleta with id",req.params.id) 
+    console.log(req.body);
     Bicicleta.findOne({ code: req.params.id }).then(function (bici) {
-        bici.id = req.body.id
+        bici.code = req.body.id
         bici.color = req.body.color
         bici.modelo = req.body.modelo
         bici.ubicacion = [req.body.lon, req.body.lat]

@@ -1,10 +1,11 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 const { isReadStream } = require('request/lib/helpers')
 const Bicicleta = require('../../models/bicicleta')
 
 describe('Testing bicicletas', function(){
     beforeEach(function(done){
-        var mongoDB = 'mongodb://localhost:27017/red_bicicletas'
+        var mongoDB = process.env.MONGODB_CONNECTION
         mongoose.connect(mongoDB, {useNewUrlParser: true})
 
         const db = mongoose.connection

@@ -6,7 +6,7 @@ const Reserva = require('../../models/reserva')
 
 describe('Testing usuarios', function(){
     beforeEach(function(done){
-        var mongoDB = 'mongodb://localhost:27017/red_bicicletas'
+        var mongoDB = process.env.MONGODB_CONNECTION
         mongoose.connect(mongoDB, {useNewUrlParser: true})
 
         const db = mongoose.connection
