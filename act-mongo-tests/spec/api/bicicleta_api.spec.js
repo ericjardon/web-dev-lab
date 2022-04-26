@@ -59,11 +59,27 @@ describe('Bicicletas API', () => {
     })
 
     //TODO: add test for removing a bike
-    /* describe('POST BICICLETA /:id/delete', () => {
+    describe('POST BICICLETA create-delete', () => {
         it('Status 204', (done) => {
-            let headers = {'content-type' : 'application/json'}
-            let idToDelete = ''
+            const headers = {'content-type' : 'application/json'}
+            const aBici = '{"code" : 3, "color": "green", "modelo": "bmx", "lat": -99.13, "lon": 19.28}'
+            request.post({
+                headers: headers,
+                url: base_url + 'create',
+                body: aBici
+            }, (error, response, body) => {
+                const idToDelete = 3;
+                const deleteUrl = base_url + 'delete'
+
+                request.post({
+                    headers:headers,
+                    url: deleteUrl,
+                    body: '{"code" : 3}'
+                }, (error, response, body) => {
+                    expect(response.statusCode).toBe(204)
+                    done()
+                })
+            })})
         })
-    }) */
 })
 
