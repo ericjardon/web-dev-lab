@@ -12,7 +12,7 @@ eliminar bicicleta.
 
 describe('Test Bicicletas Model', () => {
     beforeEach((done) => {
-        var mongoDB = process.env.MONGODB_CONNECTION
+        const mongoDB = process.env.MONGODB_CONNECTION
         mongoose.connect(mongoDB, {useNewUrlParser: true})
 
         const db = mongoose.connection

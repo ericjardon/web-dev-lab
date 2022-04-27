@@ -56,10 +56,12 @@ usuarioSchema.methods.validPassword = function(password){
     return bcrypt.compare(password, this.password)
 }
 
-usuarioSchema.methods.reservar = function(biciId, desde, hasta, cb) {
+usuarioSchema.methods.reservar = function(biciId, desde, hasta) {
+    console.log("Reservando");
     let reserva = new Reserva({usuario: this._id, bicicleta: biciId, desde: desde, hasta: hasta})
     //console.log(reserva)
-    reserva.save(cb)
+    console.log("Reserva lista. .save()...")
+    return reserva.save()
 }
 
 usuarioSchema.methods.enviar_mail_bienvenida = function(cb) {

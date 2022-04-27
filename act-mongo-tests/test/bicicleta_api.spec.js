@@ -10,13 +10,15 @@ describe('Bicicletas API', function () {
 
     beforeEach(function (done) {
         var mongoDB = process.env.MONGODB_CONNECTION
-        mongoose.connect(mongoDB, { useNewUrlParser: true })
-
-        const db = mongoose.connection
-        db.on('error', console.error.bind(console, 'connection error'))
-        db.once('open', function () {
+        mongoose.connect(mongoDB, { useNewUrlParser: true }, (err) => {
+            if (err) {
+                console.error(err);
+            }
             done()
         })
+
+        //const db = mongoose.connection
+
     })
 
     afterEach(function (done) {
@@ -43,7 +45,7 @@ describe('Bicicletas API', function () {
     })
 
     describe('API POST bicicletas/create', () => {
-        it('should add a new bycicle without error', (done) => {
+        it('should add a new bicycle without error', (done) => {
             const headers = { 'content-type': 'application/json' }
             const payload = JSON.stringify({
                 code: 111,
