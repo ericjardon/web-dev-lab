@@ -7,3 +7,7 @@ Añade una página simple de login donde los usuarios verificados puedan loguear
 
 MONGODB PERSISTENCE
 Las bicicletas, los usuarios y las reservas hechas por estos deberán quedar almacenadas en nuestra DB.
+
+
+EXTRACT DB CONNECTION TO A MODULE SO IT ALWAYS RESOLVES
+https://stackoverflow.com/questions/59740300/db-is-not-a-function-error-in-nodejs-using-mongodb

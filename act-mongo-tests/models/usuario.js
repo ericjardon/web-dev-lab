@@ -20,7 +20,7 @@ let usuarioSchema = new Schema({
     nombre: {
         type: String,
         trim: true,
-        required: [true, 'El nombre es obligatorio']
+        required: false,
     },
     email: {
         type: String,

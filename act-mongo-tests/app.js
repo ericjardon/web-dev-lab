@@ -1,13 +1,19 @@
 require('dotenv').config()
+const path = require('path');
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+
+const passport = require('./passport/setup');
+const auth = require('./routes/auth');
+
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 let biciRouter = require('./routes/bicicletas')
 let biciRouterAPI = require('./routes/api/bicicletas')
 let usuariosAPIRouter = require('./routes/api/usuarios')
@@ -15,11 +21,11 @@ let usuariosAPIRouter = require('./routes/api/usuarios')
 let usuariosRouter = require('./routes/usuarios')
 let tokenRouter = require('./routes/token')
 
-var app = express();
+const app = express();
 
 //Setup mongoose
-var mongoose = require('mongoose')
-var mongoDB = process.env.MONGODB_CONNECTION;
+const mongoose = require('mongoose')
+const mongoDB = process.env.MONGODB_CONNECTION;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true })
 mongoose.Promise = global.Promise
@@ -33,12 +39,33 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
+
+// Parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Express sessions setup
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_CONNECTION,
+    })
+  })
+)
+
+/*  Passport setup
+ we tell passport to use sessions to store serialized users,
+*/
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', indexRouter);
+app.use('/api/auth', auth);
 app.use('/users', usersRouter);
 app.use('/bicicletas', biciRouter);
 app.use('/api/bicicletas', biciRouterAPI);

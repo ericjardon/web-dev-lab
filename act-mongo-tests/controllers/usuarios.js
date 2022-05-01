@@ -34,6 +34,10 @@ module.exports = {
         res.render('usuarios/create', { errors:{}, usuario: new Usuario() } )
     },
 
+    login_get: function(req, res, next){
+        res.render('usuarios/login', { errors:{} } )
+    },
+
     create: function(req, res, next){
         if(req.body.password != req.body.confirm_password){
             res.render('usuarios/create', {errors: {confirm_password: {message: 'No coinciden los passwords '}},  usuario: new Usuario({nombre: req.body.nombre, email: req.body.email }) })
@@ -58,8 +62,15 @@ module.exports = {
             else
                 res.redirect('/usuarios')
         })
+    },
+
+    login: function(req, res, next) {
+        console.log("login", req.body);
+
+        res.render('usuarios/login', {errors:{
+            general: 'Credenciales incorrectas',
+        }})
     }
 
 }
-
 
