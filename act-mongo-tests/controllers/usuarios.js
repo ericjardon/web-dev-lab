@@ -1,6 +1,7 @@
 
 
 let Usuario = require('../models/usuario')
+let Reserva = require('../models/reserva')
 
 module.exports = {
 
@@ -70,6 +71,19 @@ module.exports = {
         res.render('usuarios/login', {errors:{
             general: 'Credenciales incorrectas',
         }})
+    },
+
+    fetchReservas: function(req, res, next) {
+        // Retrieve reservas
+        const {id} = req.user;
+        Reserva.find({usuario: id})
+        .then(reservaciones => {
+            console.log("Fetch reservas reservaciones", reservaciones);
+            res.render('/mis-reservas', reservaciones)
+        })
+        .catch(err => {
+            next(err)
+        })
     }
 
 }
