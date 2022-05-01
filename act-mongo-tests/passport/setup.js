@@ -27,34 +27,19 @@ passport.use(
         // Match a user
         Usuario.findOne({email: email})
         .then(user => {
-            
             if (!user) {  // user doesn't exist, create a new user
-                const newUser = new Usuario({email, password});
-                // Hash password
-                bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(newUser.password, salt, (err,hash) => {
-                        if (err) throw err;
-                        // Store user with hashed password
-                        newUser.password = hash;
-
-                        newUser.save()
-                        .then(user => {
-                            return done(null, user);
-                        })
-                        .catch(err => {
-                            return done(null, false, {message: err});
-                        })
-                    })
-                });
+                return done(null, false, {message: "El usuario no existe"})
             }  // else, return existing user
             else {
                 bcrypt.compare(password, user.password, (err, success) => {
                     if (err) throw err;
 
-                    if (sucess) {
+                    if (success) {
+                        console.log("login SUCESS", email);
                         return done(null, user);
                     } else {
-                        return done(null, false, {message: "Wrong password"})
+                        console.log("Login FAIL", email );
+                        return done(null, false, {message: "Contraseña incorrecta"})
                     }
                 });
             }

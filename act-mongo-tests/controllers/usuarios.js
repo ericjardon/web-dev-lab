@@ -77,14 +77,15 @@ module.exports = {
         // Retrieve reservas
         const {id} = req.user;
         Reserva.find({usuario: id})
-        .then(reservaciones => {
-            console.log("Fetch reservas reservaciones", reservaciones);
-            res.render('/mis-reservas', reservaciones)
+        .then(reservas => {
+            console.log("Fetch reservas reservas", reservas);
+            res.locals.reservas = reservas;  // should be available in template
+            next();
         })
         .catch(err => {
             next(err)
         })
-    }
+    },
 
 }
 

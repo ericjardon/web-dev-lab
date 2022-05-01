@@ -9,7 +9,7 @@ const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const passport = require('./passport/setup');
+const passport = require('passport');
 const auth = require('./routes/auth');
 
 const indexRouter = require('./routes/index');
@@ -61,11 +61,12 @@ app.use(
 /*  Passport setup
  we tell passport to use sessions to store serialized users,
 */
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
+app.use(passport.authenticate('session'));
 
 app.use('/', indexRouter);
-app.use('/api/auth', auth);
+app.use('/auth', auth);
 app.use('/users', usersRouter);
 app.use('/bicicletas', biciRouter);
 app.use('/api/bicicletas', biciRouterAPI);

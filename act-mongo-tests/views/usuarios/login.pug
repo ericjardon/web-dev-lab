@@ -4,7 +4,7 @@ block content
     a(href='/') Volver
     br
     h1 Inicia Sesión
-    form(action='/usuarios/login' method='POST')
+    form(action='/auth/login' method='POST')
         table.table 
             tr 
                 td
@@ -24,6 +24,6 @@ block content
                 td 
                 td
                     input.btn(type='submit' value='Log in')
-                    if errors.general 
+                    if errors.message  
                         br
-                        small#emailHelp.text-danger=errors.general
+                        small#emailHelp.text-danger=errors.message 

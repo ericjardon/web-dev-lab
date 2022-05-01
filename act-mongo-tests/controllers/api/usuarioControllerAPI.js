@@ -1,4 +1,5 @@
 let Usuario = require('../../models/usuario')
+let Reserva = require('../../models/reserva')
 
 exports.usuarios_list = function(req, res){
     Usuario.find({}, function(err, usuarios){
@@ -27,3 +28,14 @@ exports.usuario_reservar = function(req, res){
     })
 }
 
+exports.delete_reserva = async function(req, res, next) {
+    const {id} = req.params;
+    console.log("Deleting reserva", id);
+    try {
+        await Reserva.findByIdAndDelete(id)
+        res.redirect('/');
+    } catch (e) {
+        res.status(500).send(e);
+    }
+
+}
