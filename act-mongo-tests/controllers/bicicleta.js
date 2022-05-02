@@ -7,6 +7,17 @@ exports.bicicleta_list = function (req, res) {
     })
 }
 
+exports.fetchBicicletas = function (req, res, next) {
+    Bicicleta.find()
+    .then(bicis => {
+        res.locals.bicis = bicis
+        next()
+    })
+    .catch(err => {
+        next(err);
+    })
+}
+
 exports.bicicleta_create_get = function (req, res) {
     res.render('bicicletas/create')
 }

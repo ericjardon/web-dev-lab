@@ -1,3 +1,4 @@
+const moment = require('moment')
 
 
 let Usuario = require('../models/usuario')
@@ -78,9 +79,18 @@ module.exports = {
         // Retrieve reservas
         const {id} = req.user;
         Reserva.find({usuario: id})
+        .populate('bicicleta')
         .then(reservas => {
-            console.log("Fetch reservas reservas", reservas);
-            res.locals.reservas = reservas;  // should be available in template
+            moment.locale('es-mx');
+            res.locals.reservas = reservas.map(reserva => {
+                return {
+                    ...reserva._doc,
+                    desde: moment(reserva.desde).format('LL'),
+                    hasta: moment(reserva.hasta).format('LL'),
+                    duracion: reserva.diasDeReserva()
+                }
+            });  // should be available in template
+
             next();
         })
         .catch(err => {

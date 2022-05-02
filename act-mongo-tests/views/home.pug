@@ -20,31 +20,36 @@ block content
   else
     h3 Usuario no verificado ⛔
   br
+  a(href='bicicletas/') Ver bicicletas
+  br
   a(href='reservas/create') Reservar bicicleta
   br
   form.inline(method='post' action='/auth/logout')
     button.link-button(type='submit' name='submit_param' value='submit_value' class='btn')
         = 'Cerrar Sesión'
-  h1 Listado de bicicletas
+  h1 Tus Reservas
   table.table 
       thead  
           tr 
-              th ID
+              th Código
               th Bicicleta
               th Desde
               th Hasta
+              th Días
+              th Cancelar
       tbody 
           each reserva in reservas
               tr
-                  td=reserva._id
-                  td=reserva.bicicleta
+                  td=reserva.bicicleta.code
+                  td #{reserva.bicicleta.modelo}, #{reserva.bicicleta.color}
                   td=reserva.desde
                   td=reserva.hasta
+                  td=reserva.duracion
                   td 
-                      form.inline(method='post' action='/bicicletas/delete/' + bici.code)
-                          input(type='hidden' name='code' value= bici.code)
+                      form.inline(method='post' action='/reservas/delete/' + reserva._id)
                           button.link-button(type='submit' name='submit_param' value='submit_value' class='btn')
-                              = 'Eliminar'
+                              = 'Cancelar'
+
   h1 Mapa
   #map
   

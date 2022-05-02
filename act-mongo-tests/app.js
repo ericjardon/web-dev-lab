@@ -15,12 +15,13 @@ const auth = require('./routes/auth');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-let biciRouter = require('./routes/bicicletas')
-let biciRouterAPI = require('./routes/api/bicicletas')
-let usuariosAPIRouter = require('./routes/api/usuarios')
+const biciRouter = require('./routes/bicicletas')
+const reservaRouter = require('./routes/reservas')
+const biciRouterAPI = require('./routes/api/bicicletas')
+const usuariosAPIRouter = require('./routes/api/usuarios')
 
-let usuariosRouter = require('./routes/usuarios')
-let tokenRouter = require('./routes/token')
+const usuariosRouter = require('./routes/usuarios')
+const tokenRouter = require('./routes/token')
 
 const app = express();
 
@@ -72,6 +73,7 @@ app.use('/', indexRouter);
 app.use('/auth', auth);
 app.use('/users', usersRouter);
 app.use('/bicicletas', biciRouter);
+app.use('/reservas', reservaRouter);
 app.use('/api/bicicletas', biciRouterAPI);
 app.use('/api/usuarios', usuariosAPIRouter);
 app.use('/usuarios', usuariosRouter);
