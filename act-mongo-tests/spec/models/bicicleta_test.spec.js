@@ -5,7 +5,7 @@ const Bicicleta = require('../../models/bicicleta')
 
 describe('Testing bicicletas', function(){
     beforeEach(function(done){
-        var mongoDB = process.env.MONGODB_CONNECTION
+        var mongoDB = process.env.TESTDB_CONNECTION
         mongoose.connect(mongoDB, {useNewUrlParser: true})
 
         const db = mongoose.connection

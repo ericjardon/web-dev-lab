@@ -11,8 +11,9 @@ eliminar bicicleta.
 */
 
 describe('Test Bicicletas Model', () => {
-    beforeEach((done) => {
-        const mongoDB = process.env.MONGODB_CONNECTION
+    beforeEach(function(done) {
+        this.timeout(10000);
+        const mongoDB = process.env.TESTDB_CONNECTION
         mongoose.connect(mongoDB, {useNewUrlParser: true})
 
         const db = mongoose.connection

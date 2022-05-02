@@ -7,7 +7,7 @@ let base_url = 'http://localhost:3000/api/bicicletas/'
 describe('Bicicletas API', () => {
 
     beforeEach(function(done){
-        var mongoDB = process.env.MONGODB_CONNECTION
+        var mongoDB = process.env.TESTDB_CONNECTION
         mongoose.connect(mongoDB, {useNewUrlParser: true})
 
         const db = mongoose.connection

@@ -9,7 +9,8 @@ const BASE_URL = 'http://localhost:3000/api/bicicletas/'
 describe('Bicicletas API', function () {
 
     beforeEach(function (done) {
-        var mongoDB = process.env.MONGODB_CONNECTION
+        this.timeout(10000);
+        var mongoDB = process.env.TESTDB_CONNECTION
         mongoose.connect(mongoDB, { useNewUrlParser: true }, (err) => {
             if (err) {
                 console.error(err);
@@ -18,7 +19,6 @@ describe('Bicicletas API', function () {
         })
 
         //const db = mongoose.connection
-
     })
 
     afterEach(function (done) {

@@ -27,7 +27,8 @@ const app = express();
 
 //Setup mongoose
 const mongoose = require('mongoose')
-const mongoDB = process.env.MONGODB_CONNECTION;
+const mongoDB = process.env.TEST ? process.env.TESTDB_CONNECTION : process.env.MONGODB_CONNECTION;
+console.log("Connecting to", mongoDB);
 
 mongoose.connect(mongoDB, { useNewUrlParser: true })
 mongoose.Promise = global.Promise

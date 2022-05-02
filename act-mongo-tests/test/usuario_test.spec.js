@@ -2,7 +2,8 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const assert = require('assert');
 const Usuario = require('../models/usuario')
-const Bicicleta = require('../models/bicicleta')
+const Bicicleta = require('../models/bicicleta');
+const reserva = require('../models/reserva');
 
 /*
 A user can make a bicycle reservation
@@ -18,7 +19,7 @@ let testBike;
 describe('Test Usuario Model', () => {
     beforeEach(function (done)  {
         this.timeout(10000);
-        const mongoDB = process.env.MONGODB_CONNECTION
+        const mongoDB = process.env.TESTDB_CONNECTION
         mongoose.connect(mongoDB, {useNewUrlParser: true})
 
         const db = mongoose.connection
@@ -49,7 +50,8 @@ describe('Test Usuario Model', () => {
         this.timeout(20000);
         it('should create a reservation without error', async () => {
             // Make a reservation for bicycle with code 99
-            await testUser.reservar(testBike._id, '2022-04-25', '2022-04-26');            
+            await testUser.reservar(testBike._id, '2022-04-25', '2022-04-26');  
+            await reserva.deleteMany({})          
         })
     })
 })
