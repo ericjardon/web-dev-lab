@@ -13,8 +13,6 @@ block content
                 th Nombre
                 th Email
                 th Verificado
-                th
-                th
         tbody 
             each usuario in usuarios
                 tr
@@ -22,11 +20,9 @@ block content
                     td=usuario.nombre
                     td=usuario.email
                     td=usuario.verificado ? 'SI' : 'NO'
-                    td
-                        a(href=`/usuarios/${usuario.id}/update/`) Editar
-                    td 
-                        form.inline(method='post' action='/usuarios/delete' + usuario.id)
-                            input(type='hidden' name='id' value= usuario.id)
-                            button.link-button.btn-danger(type='submit' name='submit_param' value='submit_value' class='btn')
-                                = 'Eliminar'
+                    //- td 
+                    //-     form.inline(method='post' action='/usuarios/delete' + usuario.id)
+                    //-         input(type='hidden' name='id' value= usuario.id)
+                    //-         button.link-button.btn-danger(type='submit' name='submit_param' value='submit_value' class='btn')
+                    //-             = 'Eliminar'
     a(href='/') Home

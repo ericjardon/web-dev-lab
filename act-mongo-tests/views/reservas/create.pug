@@ -4,15 +4,15 @@ block content
     a(href='/') Volver
     br
     h1 Hacer una reservación
-    form(action='/usuarios/create' method='POST')
+    p A nombre de: #{usuario.nombre}  
+    form(action='/reservas/create' method='POST')
+        input(type='hidden' name='id' value= usuario._id)
         table.table 
             tr 
                 td
-                    label(for='bicicleta') Bicicleta ID:
+                    label(for='bici_id') Bicicleta ID:
                 td
-                    select(name='bicicleta')
-                        option(value='ejemplo') 
-                            | Ejemplo 
+                    select(name='bici_id')
                         each bici in bicis
                             option(value=bici._id) #{bici.modelo} #{bici.color} ##{bici.code}
             tr 

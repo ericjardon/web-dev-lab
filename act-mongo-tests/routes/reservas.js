@@ -1,10 +1,10 @@
 let express = require('express');
 let router = express.Router();
-let usuariosAPI = require('../controllers/api/usuarioControllerAPI')
+let usuariosController = require('../controllers/usuarios')
 let bicicletas = require('../controllers/bicicleta')
 let reservasController = require('../controllers/reservas')
 
-router.post('/create', usuariosAPI.usuario_reservar)
+router.post('/create', usuariosController.reservar);
 router.get('/create', bicicletas.fetchBicicletas, reservasController.create_get)
 router.post('/delete/:id', reservasController.delete)
 

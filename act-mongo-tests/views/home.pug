@@ -24,6 +24,8 @@ block content
   br
   a(href='reservas/create') Reservar bicicleta
   br
+  a(href=`/usuarios/update/${user._id}`) Editar Perfil
+  br
   form.inline(method='post' action='/auth/logout')
     button.link-button(type='submit' name='submit_param' value='submit_value' class='btn')
         = 'Cerrar Sesión'
@@ -36,7 +38,7 @@ block content
               th Desde
               th Hasta
               th Días
-              th Cancelar
+              th
       tbody 
           each reserva in reservas
               tr

@@ -1,17 +1,20 @@
 const Reserva = require('../models/reserva')
 
 exports.create_get = function (req, res) {
-    res.render('reservas/create')
-}
-
-exports.delete = async function(req, res, next) {
-
     if (!req.user) {
         console.log("Not authenticated");
         res.redirect('/usuarios/login');
         return;
     }
 
+    res.render('reservas/create', {usuario: req.user})
+}
+
+exports.create = function (req, res) {
+    
+}
+
+exports.delete = async function(req, res, next) {
     const {id} = req.params;
     console.log("Deleting reserva", id);
     try {

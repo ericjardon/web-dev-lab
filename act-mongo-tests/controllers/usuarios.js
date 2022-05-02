@@ -98,5 +98,21 @@ module.exports = {
         })
     },
 
+    reservar: function(req, res){
+        Usuario.findById(req.body.id, async function(err, usuario){
+            if (err) {
+                res.status(404).redirect('/usuarios/login');
+            }
+            console.log(usuario)
+            try {
+                await usuario.reservar(req.body.bici_id, req.body.desde, req.body.hasta);
+                console.log("Reserva existosa")
+                res.status(200).redirect('/');
+            } catch (e) {
+                console.error("Error creating reservation", e);
+                res.status(500).redirect('/reservas/create');
+            }
+        })
+    }
 }
 

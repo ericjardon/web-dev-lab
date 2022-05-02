@@ -8,9 +8,6 @@ router.get('/', usuarioController.usuarios_list);
 //Crear usuario
 router.post('/create', usuarioController.usuarios_create);
 
-//Reservar
-router.post('/reservar', usuarioController.usuario_reservar)
-
 
 module.exports = router;
 

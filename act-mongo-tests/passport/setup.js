@@ -28,11 +28,15 @@ passport.use(
         // Match a user
         Usuario.findOne({email: email})
         .then(user => {
-            if (!user) {  // user doesn't exist, create a new user
+            if (!user) {
 
                 return done(null, false, req.flash('message', 'El usuario no existe' ))
             }  // else, return existing user
             else {
+                if (!user.verificado) {
+                    return done(null, false, req.flash('message', 'Usuario no verificado. Revisa tu correo'))
+                }
+
                 bcrypt.compare(password, user.password, (err, success) => {
                     if (err) throw err;
 

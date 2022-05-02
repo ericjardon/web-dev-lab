@@ -56,12 +56,12 @@ usuarioSchema.methods.validPassword = function(password){
     return bcrypt.compare(password, this.password)
 }
 
-usuarioSchema.methods.reservar = function(biciId, desde, hasta) {
+usuarioSchema.methods.reservar = async function(biciId, desde, hasta) {
     console.log("Reservando");
     let reserva = new Reserva({usuario: this._id, bicicleta: biciId, desde: desde, hasta: hasta})
     //console.log(reserva)
     console.log("Reserva lista. .save()...")
-    return reserva.save()
+    await reserva.save()
 }
 
 usuarioSchema.methods.enviar_mail_bienvenida = function(cb) {
