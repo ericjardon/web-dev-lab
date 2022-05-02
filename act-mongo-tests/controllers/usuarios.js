@@ -31,12 +31,13 @@ module.exports = {
         })
     },
 
-    create_get: function(req, res, next){
+    create_get: function(req, res){
         res.render('usuarios/create', { errors:{}, usuario: new Usuario() } )
     },
 
-    login_get: function(req, res, next){
-        res.render('usuarios/login', { errors:{} } )
+    login_get: function(req, res){
+        const message = req.flash('message');
+        res.render('usuarios/login', { message } )
     },
 
     create: function(req, res, next){

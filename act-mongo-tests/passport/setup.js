@@ -22,24 +22,26 @@ caveat of dropping the mandatory 'name' field upon User Document creation.
 */
 passport.use(
     new LocalStrategy({
-        usernameField: 'email'
-    }, (email, password, done) => {
+        usernameField: 'email',
+        passReqToCallback:true,
+    }, (req, email, password, done) => {
         // Match a user
         Usuario.findOne({email: email})
         .then(user => {
             if (!user) {  // user doesn't exist, create a new user
-                return done(null, false, {message: "El usuario no existe"})
+
+                return done(null, false, req.flash('message', 'El usuario no existe' ))
             }  // else, return existing user
             else {
                 bcrypt.compare(password, user.password, (err, success) => {
                     if (err) throw err;
 
                     if (success) {
-                        console.log("login SUCESS", email);
+                        console.log("Login SUCESS", email);
                         return done(null, user);
                     } else {
                         console.log("Login FAIL", email );
-                        return done(null, false, {message: "Contraseña incorrecta"})
+                        return done(null, false, req.flash('message', 'Usuario / Contraseña incorrectos'))
                     }
                 });
             }

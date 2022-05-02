@@ -5,6 +5,7 @@ const createError = require('http-errors');
 const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const flash = require('req-flash')
 
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -57,6 +58,8 @@ app.use(
     })
   })
 )
+
+app.use(flash())
 
 /*  Passport setup
  we tell passport to use sessions to store serialized users,
