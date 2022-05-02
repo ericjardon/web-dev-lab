@@ -37,6 +37,9 @@ module.exports = {
     },
 
     login_get: function(req, res){
+        if (req.user) {
+            res.redirect('/');
+        }
         const message = req.flash('message');
         res.render('usuarios/login', { message } )
     },
